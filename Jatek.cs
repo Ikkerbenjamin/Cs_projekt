@@ -10,12 +10,7 @@ namespace Cs_projekt
     {
         private Hacker hacker;
         private List<Celpont> celpontok;
-        private List<Technika> technikak;
-
-        public Jatek(List<Celpont> celpontok)
-        {
-            this.celpontok = celpontok;
-        }
+        private int energia;
 
         public void Inditas()
         {
@@ -25,15 +20,18 @@ namespace Cs_projekt
 
         private void Inicializalas()
         {
-            // Hacker létrehozása
-            hacker = new Hacker("EliteHacker", 5, 100);
+         
+            hacker = new Hacker("EliteHacker", 5, 40);
 
-            // Hackelési technikák létrehozása
-            technikak = new List<Technika>
+          
+            celpontok = new List<Celpont>
         {
-            new Technika("Brute Force", 5, 10),
-            new Technika("SQL Injection", 10, 15),
-            new Technika("Zero-Day Exploit", 20, 25)
+            new Celpont("Kisebb Szerver", 10),
+            new Celpont("Adatbázis", 15),
+            new Celpont("Banki Rendszer", 20),
+            new Celpont("Fájl Kiszolgáló", 12),
+            new Celpont("Weboldal", 8),
+            new Celpont("Zárt Hálózat", 25)
         };
         }
 
@@ -41,140 +39,181 @@ namespace Cs_projekt
         {
             while (true)
             {
+
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("--- Hacker Támadás Szimuláció ---\n");
+
+              
+                Console.SetCursorPosition(100, 0);
+                Console.WriteLine($"Energia: {hacker.Energia}");
                 Console.ResetColor();
 
-                Console.WriteLine($"Aktuális energia: {hacker.Energia} / 100");
-                Console.WriteLine("1. Hackelési kísérlet");
-                Console.WriteLine("2. Energia feltöltése");
+                Console.WriteLine("--- Hacker Támadás Szimuláció ---\n");
+                Console.WriteLine("1. Energia szerzés");
+                Console.WriteLine("2. Hackelési kísérlet");
                 Console.WriteLine("3. Kilépés\n");
-                Console.Write("Választás: ");
+                Console.Write("Válassz egy lehetőséget: ");
 
                 string valasztas = Console.ReadLine();
 
                 switch (valasztas)
                 {
                     case "1":
-                        HackelesiMenet();
+                        EnergiaSzerzes();
                         break;
                     case "2":
-                        EnergiaFeltoltes();
+                        HackelesiKiserlet();
                         break;
                     case "3":
                         Console.WriteLine("Köszönjük, hogy játszottál!");
                         return;
                     default:
-                        Console.WriteLine("Érvénytelen választás. Próbáld újra!");
+                        Console.WriteLine("Érvénytelen választás, próbáld újra.");
                         break;
                 }
-
-                Console.WriteLine("\nNyomj egy gombot a folytatáshoz...");
-                Console.ReadKey();
             }
         }
 
-        private void EnergiaFeltoltes()
+        private void EnergiaSzerzes()
         {
+           
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("--- Energia Feltöltés ---");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("--- Energia Szerzés ---\n");
             Console.ResetColor();
 
-            // Energia gyűjtése
-            Console.WriteLine("Válassz egy tevékenységet az energiád feltöltéséhez:");
-            Console.WriteLine("1. Minijáték a teljes energia feltöltéséhez");
-            Console.WriteLine("2. Kilépés");
+            string[] szimbólumok = { "@", "#", "&", "*"};
+            Random random = new Random();
+            int helyesIndex = random.Next(szimbólumok.Length); 
 
-            string valasztas = Console.ReadLine();
-
-            switch (valasztas)
+         
+            Console.WriteLine("Találd meg a helyes szimbólumot a következő listából, hogy energiát szerezz:");
+            for (int i = 0; i < szimbólumok.Length; i++)
             {
-                case "1":
-                    Console.WriteLine("Minijáték: Kattints a megfelelő számra!");
-                    Random rand = new Random();
-                    int randomSzam = rand.Next(1, 6); // 1-5 közötti szám
-                    Console.WriteLine($"A szám: {randomSzam}");
-                    Console.Write("Válassz számot (1-5): ");
-                    if (int.TryParse(Console.ReadLine(), out int valasztottSzam) && valasztottSzam == randomSzam)
-                    {
-                        hacker.EnergiatTolteni(50);
-                        Console.WriteLine("Sikerült a minijáték! 50 energia hozzáadva.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Minijáték nem sikerült.");
-                    }
-                    break;
-                case "2":
-                    return;
-                default:
-                    Console.WriteLine("Érvénytelen választás!");
-                    break;
+                Console.WriteLine($"{i + 1}. {szimbólumok[i]}");
             }
+
+    
+            Console.Write("Válaszd ki a helyes szimbólum számát (1-4): ");
+            if (int.TryParse(Console.ReadLine(), out int valasztottIndex) && valasztottIndex >= 1 && valasztottIndex <= 4)
+            {
+                if (valasztottIndex - 1 == helyesIndex)
+                {
+                    hacker.Energia += 10; 
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Helyes válasz! 10 energia hozzáadva.");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Helytelen válasz. Próbáld újra.");
+                    Console.ResetColor();
+                }
+            }
+            else
+            {
+                Console.WriteLine("Érvénytelen választás. Próbáld újra.");
+            }
+
+            Console.WriteLine("\nNyomj egy gombot a folytatáshoz...");
+            Console.ReadKey();
         }
 
-        private void HackelesiMenet()
+        private void HackelesiKiserlet()
         {
-            if (celpontok.Count == 0)
-            {
-                Console.WriteLine("Gratulálok! Minden célpontot sikeresen feltörtél!");
-                return;
-            }
-
             Console.Clear();
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("--- Hackelési Kísérlet ---\n");
             Console.ResetColor();
 
-            // Célpont kiválasztása
+           
             Console.WriteLine("Célpontok:");
             for (int i = 0; i < celpontok.Count; i++)
             {
                 Console.WriteLine($"{i + 1}. {celpontok[i].Nev} (Védelem: {celpontok[i].VedelemSzint})");
             }
-            Console.Write("Válaszd ki a célpontot (1-{celpontok.Count}): ");
 
-            if (!int.TryParse(Console.ReadLine(), out int celpontIndex) || celpontIndex < 1 || celpontIndex > celpontok.Count)
+            Console.Write("Válaszd ki a célpontot (1-{0}): ", celpontok.Count);
+
+            int celpontIndex;
+            if (!int.TryParse(Console.ReadLine(), out celpontIndex) || celpontIndex < 1 || celpontIndex > celpontok.Count)
             {
-                Console.WriteLine("Érvénytelen célpont!");
+                Console.WriteLine("Érvénytelen célpont.");
                 return;
             }
 
             Celpont celpont = celpontok[celpontIndex - 1];
 
-            // Technika kiválasztása
-            Console.WriteLine("\nElérhető Hackelési Technikák:");
-            for (int i = 0; i < technikak.Count; i++)
+            
+            if (hacker.Energia < celpont.VedelemSzint)
             {
-                Console.WriteLine($"{i + 1}. {technikak[i].Nev} (Erő: {technikak[i].Ero}, Energiaigény: {technikak[i].EnergiaIgeny})");
-            }
-            Console.Write("Válaszd ki a technikát (1-{technikak.Count}): ");
-
-            if (!int.TryParse(Console.ReadLine(), out int technikaIndex) || technikaIndex < 1 || technikaIndex > technikak.Count)
-            {
-                Console.WriteLine("Érvénytelen technika!");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Nincs elég energiád a hackeléshez!");
+                Console.ResetColor();
                 return;
             }
 
-            Technika technika = technikak[technikaIndex - 1];
-
-            // Hackelési kísérlet végrehajtása
-            bool siker = hacker.HackelesiKiserlet(celpont, technika);
-
-            if (siker)
+          
+            if (MatematikaiJatek())
             {
-                celpont.Gyengites(technika.Ero);
-
-                if (celpont.VedelemSzint <= 0)
-                {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine($"Gratulálok! Sikeresen feltörted a(z) {celpont.Nev}-t!");
-                    Console.ResetColor();
-                    celpontok.Remove(celpont);
-                }
+                celpontok.Remove(celpont); 
+                hacker.Energia -= celpont.VedelemSzint; 
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Sikeresen feltörted a {celpont.Nev}-t!");
+                Console.ResetColor();
             }
+            else
+            {
+                hacker.Energia -= celpont.VedelemSzint;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"A hackelés nem sikerült. Elvesztettél {celpont.VedelemSzint} energiát!");
+                Console.ResetColor();
+            }
+
+            
+            if (celpontok.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("\nMinden célpontot sikeresen feltörtél! Gratulálok!");
+                Console.ResetColor();
+            }
+
+            Console.WriteLine("\nNyomj egy gombot a folytatáshoz...");
+            Console.ReadKey();
+        }
+
+        private bool MatematikaiJatek()
+        {
+            Random random = new Random();
+            int a = random.Next(1, 20);
+            int b = random.Next(1, 20);
+            int eredmeny;
+            string muvelet = random.Next(0, 4) switch
+            {
+                0 => "+",
+                1 => "-",
+                2 => "*",
+                3 => "/",
+                _ => "+"
+            };
+
+            Console.WriteLine($"Mennyi {a} {muvelet} {b}?");
+
+            bool sikeres = false;
+            if (muvelet == "+") eredmeny = a + b;
+            else if (muvelet == "-") eredmeny = a - b;
+            else if (muvelet == "*") eredmeny = a * b;
+            else eredmeny = a / b;
+
+            Console.Write("Írd be a választ: ");
+            int valasz;
+            if (int.TryParse(Console.ReadLine(), out valasz) && valasz == eredmeny)
+            {
+                sikeres = true;
+            }
+
+            return sikeres;
         }
     }
 

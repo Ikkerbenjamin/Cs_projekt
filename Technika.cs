@@ -8,15 +8,13 @@ namespace Cs_projekt
 {
     public class Technika
     {
-        public string Nev { get; private set; }
-        public int Ero { get; private set; }
-        public int EnergiaIgeny { get; private set; }
+        public string Nev { get; set; }
+        public int EnergiaKoltseg { get; set; }
 
-        public Technika(string nev, int ero, int energiaIgeny)
+        public Technika(string nev, int energiaKoltseg)
         {
             Nev = nev;
-            Ero = ero;
-            EnergiaIgeny = energiaIgeny;
+            EnergiaKoltseg = energiaKoltseg;
         }
     }
 
