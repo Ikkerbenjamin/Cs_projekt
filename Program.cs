@@ -1,4 +1,6 @@
-﻿namespace Cs_projekt
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Cs_projekt
 {
     internal class Program
     {
@@ -8,22 +10,20 @@
             Console.WriteLine("--- Hacker Támadás Szimuláció ---\n");
             Console.ResetColor();
 
-            // Célpontok és technikák inicializálása
+            // Célpontok inicializálása
             List<Celpont> celpontok = new List<Celpont>
-            {
-                new Celpont("Kisebb Szerver", 10),
-                new Celpont("Adatbázis", 20),
-                new Celpont("Banki Rendszer", 30)
-            };
-
-            // Szimuláció inicializálása
-            Szimulacio szimulacio = new Szimulacio(celpontok);
-            szimulacio.VedelemErositesTimer();
-            szimulacio.DinamikusEsemények();
+        {
+            new Celpont("Kisebb Szerver", 10),
+            new Celpont("Adatbázis", 20),
+            new Celpont("Banki Rendszer", 30),
+            new Celpont("Kormányzati Rendszer", 40),
+            new Celpont("Titkos Társaság", 50)
+        };
 
             // Játék inicializálása és indítása
-            Jatek jatek = new Jatek();
+            Jatek jatek = new Jatek(celpontok);
             jatek.Inditas();
         }
     }
+
 }
