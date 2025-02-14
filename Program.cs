@@ -4,7 +4,15 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Szimulacio szimulacio = new Szimulacio();
+
+            Console.WriteLine("--- Hacker Támadás Szimuláció ---");
+            szimulacio.Beallitas();
+
+            Console.WriteLine("\nA szimuláció indítása...");
+            szimulacio.SzimulacioInditas();
+
+            Console.WriteLine("\nSzimuláció befejeződött.");
         }
     }
 }
