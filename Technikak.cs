@@ -6,15 +6,18 @@ using System.Threading.Tasks;
 
 namespace Cs_projekt
 {
-    internal class Technikak
-    {
-        public string TechnikaNev { get; private set; }
-        public int Ero { get; private set; }
-
-        public Technikak(string technikaNev, int ero)
+        public class Technika
         {
-            TechnikaNev = technikaNev;
-            Ero = ero;
+            public string Nev { get; private set; }
+            public int Ero { get; private set; }
+            public int EnergiaIgeny { get; private set; }
+
+            public Technika(string nev, int ero, int energiaIgeny)
+            {
+                Nev = nev;
+                Ero = ero;
+                EnergiaIgeny = energiaIgeny;
+            }
         }
-    }
+
 }

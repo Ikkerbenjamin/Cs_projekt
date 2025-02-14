@@ -6,22 +6,21 @@ using System.Threading.Tasks;
 
 namespace Cs_projekt
 {
-    public class Vedelmirendszer
-    {
-        public string Tipus { get; private set; } // Megváltoztattuk a nevet: Tipus
-        public int Ero { get; private set; }
-
-        public Vedelmirendszer(string tipus, int ero)
+   
+        public class Vedelmirendszer
         {
-            Tipus = tipus; // Konstruktorban is a megfelelő nevet használjuk
-            Ero = ero;
+            public string Tipus { get; private set; }
+            public int Ero { get; private set; }
+
+            public Vedelmirendszer(string tipus, int ero)
+            {
+                Tipus = tipus;
+                Ero = ero;
+            }
+
+            public void Erosit(Celpont celpont)
+            {
+                celpont.Erosites(Ero);
+            }
         }
-
-        public void Erosit(Celpont celpont)
-        {
-            celpont.VedelemSzint += Ero;
-        }
-    }
-
-
 }

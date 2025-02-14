@@ -6,73 +6,79 @@ using System.Threading.Tasks;
 
 namespace Cs_projekt
 {
-    internal class Szimulacio
-    {
-        private List<Technikak> Technikakk;
-        private List<Vedelmirendszer> Vedelmirendszerek;
-        private Hacker hacker;
-        private Celpont celpont;
-
-        public Szimulacio()
+    
+        public class Szimulacio
         {
-            Technikakk = new List<Technikak>
+            private List<Celpont> celpontok;
+
+            public Szimulacio(List<Celpont> celpontok)
             {
-                new Technikak("SQL Injekció", 30),
-                new Technikak("Adathalászat", 20),
-                new Technikak("Brute Force", 25)
-            };
-
-            Vedelmirendszerek = new List<Vedelmirendszer>
-            {
-                new Vedelmirendszer("Tűzfal", 15),
-                new Vedelmirendszer("Titkosítás", 20),
-                new Vedelmirendszer("MI-alapú Észlelés", 25)
-            };
-        }
-
-        public void Beallitas()
-        {
-            Console.WriteLine("Add meg a hacker nevét:");
-            string hackerNev = Console.ReadLine();
-
-            Console.WriteLine("Add meg a hacker képességszintjét (1-100):");
-            int hackerKepesseg = int.Parse(Console.ReadLine());
-            hacker = new Hacker(hackerNev, hackerKepesseg);
-
-            Console.WriteLine("Add meg a célpont nevét:");
-            string celpontNev = Console.ReadLine();
-
-            Console.WriteLine("Add meg a célpont védelmi szintjét (1-100):");
-            int celpontVedelem = int.Parse(Console.ReadLine());
-            celpont = new Celpont(celpontNev, celpontVedelem);
-
-            Console.WriteLine("Válassz egy védelmet a célpont megerősítéséhez:");
-            for (int i = 0; i < Vedelmirendszerek.Count; i++)
-            {
-                Console.WriteLine($"{i + 1}. {Vedelmirendszerek[i].Tipus} (+{Vedelmirendszerek[i].Ero})");
+                this.celpontok = celpontok;
             }
 
-            int VedelmirendszerValasztas = int.Parse(Console.ReadLine()) - 1;
-            Vedelmirendszerek[VedelmirendszerValasztas].Erosit(celpont);
-            Console.WriteLine($"A célpont védelmi szintje most {celpont.VedelemSzint}");
-        }
-
-        public void SzimulacioInditas()
-        {
-            Console.WriteLine("Válassz egy hackelési technikát:");
-            for (int i = 0; i < Technikakk.Count; i++)
+            public void VedelemErositesTimer()
             {
-                Console.WriteLine($"{i + 1}. {Technikakk[i].TechnikaNev} (Erő: {Technikakk[i].Ero})");
+                // Időközönként automatikusan erősíti a célpontokat
+                new Thread(() =>
+                {
+                    while (true)
+                    {
+                        Thread.Sleep(15000); // 15 másodpercenként fut
+
+                        if (celpontok.Count > 0)
+                        {
+                            Random random = new Random();
+                            int index = random.Next(celpontok.Count);
+                            int ero = random.Next(5, 15);
+
+                            celpontok[index].Erosites(ero);
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine($"\n[Figyelem] {celpontok[index].Nev} védelmi szintje megerősödött! (+{ero})\n");
+                            Console.ResetColor();
+                        }
+                    }
+                }).Start();
             }
 
-            int technikaValasztas = int.Parse(Console.ReadLine()) - 1;
-            Technikak valasztottTechnika = Technikakk[technikaValasztas];
+            public void DinamikusEsemények()
+            {
+                // Véletlenszerű események hozzáadása
+                new Thread(() =>
+                {
+                    Random random = new Random();
+                    while (true)
+                    {
+                        Thread.Sleep(20000); // 20 másodpercenként fut
 
-            bool siker = hacker.HackelesiKiserlet(celpont, valasztottTechnika);
+                        int esemeny = random.Next(1, 3);
+                        switch (esemeny)
+                        {
+                            case 1:
+                                // Új célpont hozzáadása
+                                int vedelemSzint = random.Next(15, 25);
+                                string nev = $"Új Szerver {celpontok.Count + 1}";
+                                celpontok.Add(new Celpont(nev, vedelemSzint));
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine($"\n[Új célpont] {nev} hozzáadva! Védelem: {vedelemSzint}\n");
+                                Console.ResetColor();
+                                break;
 
-            Console.WriteLine(siker
-                ? "A hacker sikeresen feltörte a célpontot!"
-                : "A hacker nem tudta feltörni a célpontot.");
+                            case 2:
+                                // Váratlan védelemcsökkenés
+                                if (celpontok.Count > 0)
+                                {
+                                    int index = random.Next(celpontok.Count);
+                                    int csokkenes = random.Next(5, 10);
+                                    celpontok[index].Gyengites(csokkenes);
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                    Console.WriteLine($"\n[Gyengeség] {celpontok[index].Nev} védelemcsökkenést szenvedett! (-{csokkenes})\n");
+                                    Console.ResetColor();
+                                }
+                                break;
+                        }
+                    }
+                }).Start();
+            }
         }
     }
-}
+

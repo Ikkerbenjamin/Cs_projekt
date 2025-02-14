@@ -4,15 +4,26 @@
     {
         static void Main(string[] args)
         {
-            Szimulacio szimulacio = new Szimulacio();
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("--- Hacker Támadás Szimuláció ---\n");
+            Console.ResetColor();
 
-            Console.WriteLine("--- Hacker Támadás Szimuláció ---");
-            szimulacio.Beallitas();
+            // Célpontok és technikák inicializálása
+            List<Celpont> celpontok = new List<Celpont>
+            {
+                new Celpont("Kisebb Szerver", 10),
+                new Celpont("Adatbázis", 20),
+                new Celpont("Banki Rendszer", 30)
+            };
 
-            Console.WriteLine("\nA szimuláció indítása...");
-            szimulacio.SzimulacioInditas();
+            // Szimuláció inicializálása
+            Szimulacio szimulacio = new Szimulacio(celpontok);
+            szimulacio.VedelemErositesTimer();
+            szimulacio.DinamikusEsemények();
 
-            Console.WriteLine("\nSzimuláció befejeződött.");
+            // Játék inicializálása és indítása
+            Jatek jatek = new Jatek();
+            jatek.Inditas();
         }
     }
 }
