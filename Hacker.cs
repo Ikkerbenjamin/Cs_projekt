@@ -9,13 +9,11 @@ namespace Cs_projekt
     public class Hacker
     {
         public string Nev { get; private set; }
-        public int KepessegSzint { get; private set; }
         public int Energia { get; set; }
 
-        public Hacker(string nev, int kepessegSzint, int energia)
+        public Hacker(string nev, int energia)
         {
             Nev = nev;
-            KepessegSzint = kepessegSzint;
             Energia = energia;
         }
     }

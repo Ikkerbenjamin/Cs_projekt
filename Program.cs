@@ -1,4 +1,6 @@
 ﻿
+using Cs_projekt.Cs_projekt;
+
 namespace Cs_projekt
 {
 
@@ -10,7 +12,4 @@ namespace Cs_projekt
             jatek.Inditas();
         }
     }
-
-
 }
-
