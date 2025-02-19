@@ -9,6 +9,7 @@ namespace Cs_projekt
 
     namespace Cs_projekt
     {
+
         public class Jatek
         {
             private Hacker hacker;
@@ -17,36 +18,42 @@ namespace Cs_projekt
 
             public void Inditas()
             {
-                Inicializalas();
+                Console.Write("Felhasználónév: ");
+                string nev = Console.ReadLine();
+
+                Inicializalas(nev);
                 Menurendszer();
             }
 
-            private void Inicializalas()
+            private void Inicializalas(string nev)
             {
-                hacker = new Hacker("EliteHacker", 40);
+                hacker = new Hacker(nev, 40);
                 random = new Random();
 
                 celpontok = new List<Celpont>
-
-            {
-                new Celpont("Kisebb Szerver", 10),
-                new Celpont("Adatbázis", 15),
-                new Celpont("Banki Rendszer", 20),
-                new Celpont("Fájl Kiszolgáló", 12),
-                new Celpont("Weboldal", 8),
-                new Celpont("Zárt Hálózat", 25)
-            };
+        {
+            new Celpont("Kisebb Szerver", 10),
+            new Celpont("Adatbázis", 15),
+            new Celpont("Banki Rendszer", 20),
+            new Celpont("Fájl Kiszolgáló", 12),
+            new Celpont("Weboldal", 8),
+            new Celpont("Zárt Hálózat", 25)
+        };
             }
-
-            private void Menurendszer()
+            public void Menurendszer()
             {
                 while (true)
                 {
                     Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine($"Üdvözöljük {hacker.Nev}!");
+                    Console.ResetColor();
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"Energia: {hacker.Energia}");
                     Console.ResetColor();
-                    Console.WriteLine("--- Hacker Támadás Szimuláció ---");
+
+
+                    Console.WriteLine("\n--- Hacker Támadás Szimuláció ---");
                     Console.WriteLine("1. Energia szerzés");
                     Console.WriteLine("2. Hackelési kísérlet");
                     Console.WriteLine("3. Kilépés");

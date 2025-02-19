@@ -8,7 +8,7 @@ namespace Cs_projekt
 {
     public class Hacker
     {
-        public string Nev { get; private set; }
+        public string Nev { get; set; }
         public int Energia { get; set; }
 
         public Hacker(string nev, int energia)
