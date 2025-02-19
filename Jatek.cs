@@ -149,7 +149,7 @@ namespace Cs_projekt
                 Console.WriteLine("Célpontok:");
                 for (int i = 0; i < celpontok.Count; i++)
                 {
-                    Console.WriteLine($"{i + 1}. {celpontok[i].Nev} (Védelem: {celpontok[i].VedelemSzint})");
+                    Console.WriteLine($"{i + 1}. {celpontok[i].Nev} -> Védelem: {celpontok[i].VedelemSzint}");
                 }
 
                 Console.Write("Válaszd ki a célpontot (1-{0}): ", celpontok.Count);
