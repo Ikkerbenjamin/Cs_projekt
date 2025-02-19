@@ -43,7 +43,9 @@ namespace Cs_projekt
                 while (true)
                 {
                     Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine($"Energia: {hacker.Energia}");
+                    Console.ResetColor();
                     Console.WriteLine("--- Hacker Támadás Szimuláció ---");
                     Console.WriteLine("1. Energia szerzés");
                     Console.WriteLine("2. Hackelési kísérlet");
