@@ -162,7 +162,7 @@ namespace Cs_projekt
                 }
 
                 Celpont celpont = celpontok[celpontIndex - 1];
-                Console.WriteLine($"\nVálassz egy hackelési technikát ({celpont.Nev}):");
+                Console.WriteLine($"\nVálassz egy hackelési technikát: {celpont.Nev}:");
                 Console.WriteLine("1. Brute Force (15 energia, 40% esély)");
                 Console.WriteLine("2. Social Engineering (25 energia, 60% esély)");
                 Console.WriteLine("3. SQL Injection (40 energia, 80% esély)");
