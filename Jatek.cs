@@ -27,6 +27,7 @@ namespace Cs_projekt
                 random = new Random();
 
                 celpontok = new List<Celpont>
+
             {
                 new Celpont("Kisebb Szerver", 10),
                 new Celpont("Adatbázis", 15),
@@ -94,29 +95,29 @@ namespace Cs_projekt
                 int a, b;
                 string muvelet;
 
-                // Véletlenszerű művelet választása (mindig egész eredménnyel)
+               
                 int muveletIndex = random.Next(4);
                 switch (muveletIndex)
                 {
-                    case 0: // Összeadás
+                    case 0: 
                         a = random.Next(20, 100);
                         b = random.Next(10, 50);
                         eredmeny = a + b;
                         muvelet = "+";
                         break;
-                    case 1: // Kivonás (negatív szám kizárva)
+                    case 1: 
                         a = random.Next(30, 100);
                         b = random.Next(10, a);
                         eredmeny = a - b;
                         muvelet = "-";
                         break;
-                    case 2: // Szorzás
+                    case 2: 
                         a = random.Next(5, 20);
                         b = random.Next(2, 15);
                         eredmeny = a * b;
                         muvelet = "*";
                         break;
-                    case 3: // Osztás (mindig egész eredménnyel)
+                    case 3: 
                         b = random.Next(2, 10);
                         eredmeny = random.Next(2, 15);
                         a = b * eredmeny;
@@ -198,7 +199,8 @@ namespace Cs_projekt
 
                 if (celpontok.Count == 0)
                 {
-                    Console.WriteLine("Minden célpontot feltörtél! Gratulálok!");
+                    Console.WriteLine("Minden célpontot feltörtél!");
+                    
                 }
 
                 Console.WriteLine("Nyomj egy gombot a folytatáshoz...");
