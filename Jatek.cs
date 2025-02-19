@@ -32,12 +32,12 @@ namespace Cs_projekt
 
                 celpontok = new List<Celpont>
         {
-            new Celpont("Kisebb Szerver", 10),
-            new Celpont("Adatbázis", 15),
-            new Celpont("Banki Rendszer", 20),
-            new Celpont("Fájl Kiszolgáló", 12),
-            new Celpont("Weboldal", 8),
-            new Celpont("Zárt Hálózat", 25)
+            new Celpont("Weboldal", 12),
+            new Celpont("Kisebb Szerver", 20),
+            new Celpont("Fájl Kiszolgáló", 28),
+            new Celpont("Adatbázis", 32),
+            new Celpont("Zárt Hálózat", 45),
+            new Celpont("Banki Rendszer", 60)
         };
             }
             public void Menurendszer()
@@ -104,29 +104,29 @@ namespace Cs_projekt
                 int a, b;
                 string muvelet;
 
-               
+
                 int muveletIndex = random.Next(4);
                 switch (muveletIndex)
                 {
-                    case 0: 
+                    case 0:
                         a = random.Next(20, 100);
                         b = random.Next(10, 50);
                         eredmeny = a + b;
                         muvelet = "+";
                         break;
-                    case 1: 
+                    case 1:
                         a = random.Next(30, 100);
                         b = random.Next(10, a);
                         eredmeny = a - b;
                         muvelet = "-";
                         break;
-                    case 2: 
+                    case 2:
                         a = random.Next(5, 20);
                         b = random.Next(2, 15);
                         eredmeny = a * b;
                         muvelet = "*";
                         break;
-                    case 3: 
+                    case 3:
                         b = random.Next(2, 10);
                         eredmeny = random.Next(2, 15);
                         a = b * eredmeny;
@@ -191,25 +191,37 @@ namespace Cs_projekt
 
                 if (hacker.Energia < energiaSzukseg)
                 {
-                    Console.WriteLine("Nincs elég energiád a hackeléshez!");
+                    Console.WriteLine("\nNincs elég energiád a hackeléshez!");
+                    Console.ReadLine();
                     return;
                 }
 
-                hacker.Energia -= energiaSzukseg;
                 if (random.Next(100) < sikerEsely)
                 {
-                    celpontok.Remove(celpont);
-                    Console.WriteLine($"Sikeresen feltörted a {celpont.Nev}-t!");
+                    hacker.Energia -= energiaSzukseg;
+
+                    int temp = celpont.VedelemSzint - energiaSzukseg;
+
+                    if (temp <= 0)
+                    {
+                        Console.WriteLine($"\nSikeresen feltörted a {celpont.Nev}-t!");
+                        celpontok.Remove(celpont);
+                    }
+                    if (temp > 0)
+                    {
+                        celpont.VedelemSzint -= energiaSzukseg;
+                        Console.WriteLine($"\nA hackelés részben sikerült, de a {celpont.Nev} védelme még mindig {celpont.VedelemSzint}. Energia: {hacker.Energia}");
+                    }
                 }
                 else
                 {
+                    hacker.Energia -= energiaSzukseg;
                     Console.WriteLine($"A hackelés nem sikerült, elvesztettél {energiaSzukseg} energiát!");
                 }
 
                 if (celpontok.Count == 0)
                 {
                     Console.WriteLine("Minden célpontot feltörtél!");
-                    
                 }
 
                 Console.WriteLine("Nyomj egy gombot a folytatáshoz...");
