@@ -54,6 +54,7 @@ namespace Cs_projekt
 
 
                     Console.WriteLine("\n--- Hacker Támadás Szimuláció ---");
+                    Console.WriteLine();
                     Console.WriteLine("1. Energia szerzés");
                     Console.WriteLine("2. Hackelési kísérlet");
                     Console.WriteLine("3. Kilépés");
@@ -146,7 +147,8 @@ namespace Cs_projekt
             {
                 Console.Clear();
                 Console.WriteLine("--- Hackelési Kísérlet ---");
-                Console.WriteLine("Célpontok:");
+                Console.WriteLine("\nCélpontok:");
+                Console.WriteLine();
                 for (int i = 0; i < celpontok.Count; i++)
                 {
                     Console.WriteLine($"{i + 1}. {celpontok[i].Nev} -> Védelem: {celpontok[i].VedelemSzint}");
