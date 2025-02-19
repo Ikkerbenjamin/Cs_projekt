@@ -32,12 +32,12 @@ namespace Cs_projekt
 
                 celpontok = new List<Celpont>
         {
-            new Celpont("Weboldal", 15),
-            new Celpont("Kisebb Szerver", 28),
-            new Celpont("Fájl Kiszolgáló", 35),
-            new Celpont("Adatbázis", 43),
-            new Celpont("Zárt Hálózat", 65),
-            new Celpont("Banki Rendszer", 80)
+            new Celpont("Weboldal (SonicWall)", 15),
+            new Celpont("Kisebb Szerver (Cisco ASA)", 28),
+            new Celpont("Fájl Kiszolgáló (Cisco Firepower)", 35),
+            new Celpont("Adatbázis (Suricata)", 43),
+            new Celpont("Zárt Hálózat (IBM QRadar)", 65),
+            new Celpont("Banki Rendszer (AES-256)", 80)
         };
             }
             public void Menurendszer()
